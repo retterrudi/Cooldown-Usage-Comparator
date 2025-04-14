@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
 
-namespace Cooldown_Usage_Comparator.Pages.models;
+namespace Cooldown_Usage_Comparator.Models;
 
 public class AuthTokenResponse
 {
     [JsonProperty(PropertyName = "token_type")]
-    public string tokenType { get; set; }
+    public string? TokenType { get; set; }
     
     [JsonProperty(PropertyName = "expires_in")]
-    public long expiresIn { get; set; }
+    public long ExpiresIn { get; set; }
     
     [JsonProperty(PropertyName = "access_token")]
-    public string accessToken { get; set; }
+    public string? AccessToken { get; set; }
 }

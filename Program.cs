@@ -1,5 +1,5 @@
+using Cooldown_Usage_Comparator.Models;
 using Cooldown_Usage_Comparator.Pages;
-using Cooldown_Usage_Comparator.Pages.models;
 using Cooldown_Usage_Comparator.Warcraftlogs;
 using Newtonsoft.Json;
 
@@ -16,11 +16,11 @@ var oAuthClient = new OAuthTokenClient(
 var response = oAuthClient.GetTokenAsync();
 var tokenResponse = JsonConvert.DeserializeObject<AuthTokenResponse>(await response);
 
-if (tokenResponse?.accessToken is null)
+if (tokenResponse?.AccessToken is null)
 {
     Console.WriteLine($"Token response contained 'null'");
     return;
 }
 
-var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.accessToken);
+var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
 var test = await warcraftLogsClient.GetPlayerDetails("NbJGzkjLPtThAc4W", 1);

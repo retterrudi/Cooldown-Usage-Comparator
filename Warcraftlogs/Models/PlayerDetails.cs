@@ -1,34 +1,33 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
-[DataContract]
 public class PlayerDetails
 {
-    [DataMember(Name = "name")]
+    [JsonPropertyName("name")]
     public string? Name { get; init; }
     
-    [DataMember(Name = "id")]
+    [JsonPropertyName("id")]
     public int Id { get; init; }
     
-    [DataMember(Name = "guid")]
+    [JsonPropertyName("guid")]
     public long Guid { get; init; }
     
     /// <summary>
     /// For example paladin
     /// </summary>
-    [DataMember(Name = "type")]
+    [JsonPropertyName("type")]
     public string? Type { get; init; }
     
-    [DataMember(Name = "server")]
+    [JsonPropertyName("server")]
     public string? Server { get; init; }
     
-    [DataMember(Name = "region")]
+    [JsonPropertyName("region")]
     public string? Region { get; init; }
     
-    [DataMember(Name = "icon")]
+    [JsonPropertyName("icon")]
     public string? Icon { get; init; }
     
-    [DataMember(Name = "specs")]
+    [JsonPropertyName("specs")]
     public List<PlayerSpec>? Specs { get; init; }
 }
