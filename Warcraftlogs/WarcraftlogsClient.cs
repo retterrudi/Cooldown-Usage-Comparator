@@ -1,13 +1,15 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
-using static Cooldown_Usage_Comparator.utils.GeneralUtils;
+using Cooldown_Usage_Comparator.Warcraftlogs.Models;
+using Cooldown_Usage_Comparator.Warcraftlogs.Services;
 
-namespace Cooldown_Usage_Comparator;
+namespace Cooldown_Usage_Comparator.Warcraftlogs;
 
 public class WarcraftlogsClient
 {
     private readonly HttpClient _httpClient;
     private readonly AuthenticationHeaderValue _authHeader;
+    private readonly PlayerDetailsService _playerDetailsService;
     private const string ApiUri = "";
 
     // ReSharper disable once ConvertToPrimaryConstructor
@@ -18,9 +20,10 @@ public class WarcraftlogsClient
             BaseAddress = new Uri("https://www.warcraftlogs.com/api/v2/client")
         };
         _authHeader = new AuthenticationHeaderValue("Bearer", authToken);
+        _playerDetailsService = new PlayerDetailsService();
     }
 
-    public async Task GetPlayerDetails(string fightCode, int fightId)
+    public async Task<List<PlayerDetails>> GetPlayerDetails(string fightCode, int fightId)
     {
         try
         {
@@ -57,12 +60,16 @@ public class WarcraftlogsClient
 
             var apiResponse = await _httpClient.SendAsync(request);
             apiResponse.EnsureSuccessStatusCode();
-            PrettyPrintJson(apiResponse.Content.ReadAsStringAsync().Result);
+            // PrettyPrintJson(apiResponse.Content.ReadAsStringAsync().Result);
+
+            return _playerDetailsService.ExtractPlayerDetails(await apiResponse.Content.ReadAsStringAsync());
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             // TODO
         }
+
+        return [];
     }
 }

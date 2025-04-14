@@ -1,10 +1,7 @@
-using System.Net.Http.Headers;
-using System.Text;
-using Cooldown_Usage_Comparator;
 using Cooldown_Usage_Comparator.Pages;
 using Cooldown_Usage_Comparator.Pages.models;
+using Cooldown_Usage_Comparator.Warcraftlogs;
 using Newtonsoft.Json;
-using static Cooldown_Usage_Comparator.utils.GeneralUtils;
 
 var _config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
@@ -26,4 +23,4 @@ if (tokenResponse?.accessToken is null)
 }
 
 var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.accessToken);
-await warcraftLogsClient.GetPlayerDetails("NbJGzkjLPtThAc4W", 1);
+var test = await warcraftLogsClient.GetPlayerDetails("NbJGzkjLPtThAc4W", 1);
