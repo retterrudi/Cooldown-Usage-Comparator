@@ -10,6 +10,7 @@ public class WarcraftlogsClient
     private readonly HttpClient _httpClient;
     private readonly AuthenticationHeaderValue _authHeader;
     private readonly PlayerDetailsService _playerDetailsService;
+    private readonly FightsService _fightsService;
     private const string ApiUri = "";
 
     // ReSharper disable once ConvertToPrimaryConstructor
@@ -21,9 +22,72 @@ public class WarcraftlogsClient
         };
         _authHeader = new AuthenticationHeaderValue("Bearer", authToken);
         _playerDetailsService = new PlayerDetailsService();
+        _fightsService = new FightsService();
     }
 
-    public async Task<List<PlayerDetails>> GetPlayerDetails(string fightCode, int fightId)
+    public async Task<List<Fight>> Fights(string reportCode)
+    {
+        try
+        {
+            const string query = @"
+                query Fights(
+                  $code: String!, 
+                  $killType: KillType!
+                ) {
+                  reportData {
+                    report(code: $code) {
+                      fights(killType: $killType) {
+                        difficulty
+                        encounterID
+                        endTime
+                        friendlyPlayers
+                        id
+                        keystoneBonus
+                        keystoneLevel
+                        keystoneTime
+                        name
+                        startTime
+                      }
+                    }
+                  }
+                }";
+
+            var body = new
+            {
+                query,
+                variables = new
+                {
+                    code = reportCode,
+                    killType = "Encounters"
+                }
+            };
+            
+            var content = new StringContent(
+                System.Text.Json.JsonSerializer.Serialize(body), 
+                Encoding.UTF8, 
+                "application/json");
+            
+            var request = new HttpRequestMessage(HttpMethod.Post, ApiUri)
+            {
+                Headers = { Authorization = _authHeader },
+                Content = content
+            };
+
+            var apiResponse = await _httpClient.SendAsync(request);
+            apiResponse.EnsureSuccessStatusCode();
+
+            return _fightsService.ExtractFights(await apiResponse.Content.ReadAsStringAsync());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+
+            // TODO
+        }
+    }
+    
+    public async Task<List<PlayerDetails>> PlayerDetails(string reportCode, int fightId)
     {
         try
         {
@@ -41,7 +105,7 @@ public class WarcraftlogsClient
                 query,
                 variables = new
                 {
-                    code = fightCode,
+                    code = reportCode,
                     // ReSharper disable once RedundantAnonymousTypePropertyName
                     fightId = fightId
                 }
@@ -60,16 +124,14 @@ public class WarcraftlogsClient
 
             var apiResponse = await _httpClient.SendAsync(request);
             apiResponse.EnsureSuccessStatusCode();
-            // PrettyPrintJson(apiResponse.Content.ReadAsStringAsync().Result);
 
             return _playerDetailsService.ExtractPlayerDetails(await apiResponse.Content.ReadAsStringAsync());
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
+            throw;
             // TODO
         }
-
-        return [];
     }
 }

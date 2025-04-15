@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 public class RootContainer
 {
-    [JsonPropertyName("data")]
+    [JsonProperty(PropertyName = "data")]
     public ReportContainer? ReportContainer { get; init; }
 }

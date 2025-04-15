@@ -1,3 +1,4 @@
+using Cooldown_Usage_Comparator;
 using Cooldown_Usage_Comparator.Models;
 using Cooldown_Usage_Comparator.Pages;
 using Cooldown_Usage_Comparator.Warcraftlogs;
@@ -19,8 +20,11 @@ var tokenResponse = JsonConvert.DeserializeObject<AuthTokenResponse>(await respo
 if (tokenResponse?.AccessToken is null)
 {
     Console.WriteLine($"Token response contained 'null'");
-    return;
+    return -1;
 }
 
 var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
-var test = await warcraftLogsClient.GetPlayerDetails("NbJGzkjLPtThAc4W", 1);
+var testPlayerDetails = await warcraftLogsClient.PlayerDetails("NbJGzkjLPtThAc4W", 1);
+var testFights = await warcraftLogsClient.Fights("NbJGzkjLPtThAc4W");
+
+return 0;

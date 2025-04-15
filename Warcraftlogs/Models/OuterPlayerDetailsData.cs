@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 public class OuterPlayerDetailsData
 {
-    [JsonPropertyName("playerDetails")]
+    [JsonProperty(PropertyName = "playerDetails")]
     public PlayerDetailsContainer? PlayerDetails { get; init; }
 }

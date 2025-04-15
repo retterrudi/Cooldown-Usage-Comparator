@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Cooldown_Usage_Comparator.Pages;
+namespace Cooldown_Usage_Comparator;
 
 public class OAuthTokenClient
 {

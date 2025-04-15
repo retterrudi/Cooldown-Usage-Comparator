@@ -1,9 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 public class Report
 {
-    [JsonPropertyName("playerDetails")]
+    [JsonProperty(PropertyName = "playerDetails")]
     public OuterPlayerDetails? PlayerDetails { get; init; }
+    
+    [JsonProperty(PropertyName = "fights")]
+    public List<Fight>? Fights {get; init; }
 }

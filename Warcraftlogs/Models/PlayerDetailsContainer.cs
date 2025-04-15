@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 public class PlayerDetailsContainer
 {
-    [JsonPropertyName("dps")]
+    [JsonProperty(PropertyName = "dps")]
     public List<PlayerDetails>? Dps { get; init; }
 }

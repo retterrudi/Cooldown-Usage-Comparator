@@ -1,12 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 public class PlayerSpec
 {
-    [JsonPropertyName("spec")]
+    [JsonProperty(PropertyName = "spec")]
     public string? Spec { get; init; }
     
-    [JsonPropertyName("count")]
+    [JsonProperty(PropertyName = "count")]
     public int Count { get; init; }
 }

@@ -1,33 +1,33 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 public class PlayerDetails
 {
-    [JsonPropertyName("name")]
+    [JsonProperty(PropertyName = "name")]
     public string? Name { get; init; }
     
-    [JsonPropertyName("id")]
+    [JsonProperty(PropertyName = "id")]
     public int Id { get; init; }
     
-    [JsonPropertyName("guid")]
+    [JsonProperty(PropertyName = "guid")]
     public long Guid { get; init; }
     
     /// <summary>
     /// For example paladin
     /// </summary>
-    [JsonPropertyName("type")]
+    [JsonProperty(PropertyName = "type")]
     public string? Type { get; init; }
     
-    [JsonPropertyName("server")]
+    [JsonProperty(PropertyName = "server")]
     public string? Server { get; init; }
     
-    [JsonPropertyName("region")]
+    [JsonProperty(PropertyName = "region")]
     public string? Region { get; init; }
     
-    [JsonPropertyName("icon")]
+    [JsonProperty(PropertyName = "icon")]
     public string? Icon { get; init; }
     
-    [JsonPropertyName("specs")]
+    [JsonProperty(PropertyName = "specs")]
     public List<PlayerSpec>? Specs { get; init; }
 }
