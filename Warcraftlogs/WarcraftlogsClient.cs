@@ -2,6 +2,7 @@
 using System.Text;
 using Cooldown_Usage_Comparator.Warcraftlogs.Models;
 using Cooldown_Usage_Comparator.Warcraftlogs.Services;
+// ReSharper disable UseRawString
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs;
 
@@ -54,7 +55,7 @@ public class WarcraftlogsClient
                     // ReSharper disable once RedundantAnonymousTypePropertyName
                     sourceId = sourceId,
                     // ReSharper disable once RedundantAnonymousTypePropertyName
-                    fightId = fightId,
+                    fightId = fightId
                 }
             };
             

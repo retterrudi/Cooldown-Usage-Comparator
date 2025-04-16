@@ -1,7 +1,9 @@
 ﻿using System.Text.Json.Serialization;
+// ReSharper disable UnusedMember.Global
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public class Fight
 {
     [JsonPropertyName("difficulty")]

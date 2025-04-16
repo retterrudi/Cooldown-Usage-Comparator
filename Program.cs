@@ -1,10 +1,6 @@
-using Cooldown_Usage_Comparator;
 using Cooldown_Usage_Comparator.Models;
-using Cooldown_Usage_Comparator.Pages;
 using Cooldown_Usage_Comparator.Warcraftlogs;
 using Cooldown_Usage_Comparator.Warcraftlogs.Comparers;
-using Cooldown_Usage_Comparator.Warcraftlogs.Models;
-using Cooldown_Usage_Comparator.Warcraftlogs.Services;
 using Newtonsoft.Json;
 
 var _config = new ConfigurationBuilder()

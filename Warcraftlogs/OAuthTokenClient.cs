@@ -32,6 +32,7 @@ public class OAuthTokenClient
     {
         var values = new List<KeyValuePair<string, string>>
         {
+            // ReSharper disable once ArrangeObjectCreationWhenTypeEvident
             new KeyValuePair<string, string>("grant_type", "client_credentials")
         };
         var content = new FormUrlEncodedContent(values);
