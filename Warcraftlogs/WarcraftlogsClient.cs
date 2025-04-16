@@ -9,8 +9,9 @@ public class WarcraftlogsClient
 {
     private readonly HttpClient _httpClient;
     private readonly AuthenticationHeaderValue _authHeader;
-    private readonly PlayerDetailsService _playerDetailsService;
+    private readonly EventsService _eventsService;
     private readonly FightsService _fightsService;
+    private readonly PlayerDetailsService _playerDetailsService;
     private const string ApiUri = "";
 
     // ReSharper disable once ConvertToPrimaryConstructor
@@ -21,10 +22,67 @@ public class WarcraftlogsClient
             BaseAddress = new Uri("https://www.warcraftlogs.com/api/v2/client")
         };
         _authHeader = new AuthenticationHeaderValue("Bearer", authToken);
-        _playerDetailsService = new PlayerDetailsService();
+        _eventsService = new EventsService();
         _fightsService = new FightsService();
+        _playerDetailsService = new PlayerDetailsService();
     }
 
+    public async Task<List<Event>> Events(
+        string reportCode,
+        int fightId, 
+        int? sourceId)
+    {
+        try
+        {
+            const string query = @"
+                query Events($code: String!, $fightId: Int!, $sourceId: Int, $startTime: Float) {
+                  reportData {
+                    report(code: $code) {
+                      events (fightIDs: [$fightId], sourceID: $sourceId, startTime: $startTime) {
+                        data
+                      }
+                    }
+                  }
+                }";
+
+            var body = new
+            {
+                query,
+                variables = new
+                {
+                    code = reportCode,
+                    // ReSharper disable once RedundantAnonymousTypePropertyName
+                    sourceId = sourceId,
+                    // ReSharper disable once RedundantAnonymousTypePropertyName
+                    fightId = fightId,
+                }
+            };
+            
+            var content = new StringContent(
+                System.Text.Json.JsonSerializer.Serialize(body), 
+                Encoding.UTF8, 
+                "application/json");
+            
+            var request = new HttpRequestMessage(HttpMethod.Post, ApiUri)
+            {
+                Headers = { Authorization = _authHeader },
+                Content = content
+            };
+
+            var apiResponse = await _httpClient.SendAsync(request);
+            apiResponse.EnsureSuccessStatusCode();
+            
+            return _eventsService.ExtractEvents(await apiResponse.Content.ReadAsStringAsync());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+
+            // TODO
+        }
+    }
+    
     public async Task<List<Fight>> Fights(string reportCode)
     {
         try

@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Cooldown_Usage_Comparator;
+namespace Cooldown_Usage_Comparator.Warcraftlogs;
 
 public class OAuthTokenClient
 {
@@ -11,7 +11,11 @@ public class OAuthTokenClient
     private readonly string _clientSecret;
     private readonly string _tokenEndpoint;
 
-    public OAuthTokenClient(string clientId, string clientSecret, string tokenEndpoint)
+    // ReSharper disable once ConvertToPrimaryConstructor
+    public OAuthTokenClient(
+        string clientId, 
+        string clientSecret, 
+        string tokenEndpoint)
     {
         _clientId = clientId;
         _clientSecret = clientSecret;

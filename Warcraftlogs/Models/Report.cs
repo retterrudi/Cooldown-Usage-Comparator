@@ -9,4 +9,7 @@ public class Report
     
     [JsonProperty(PropertyName = "fights")]
     public List<Fight>? Fights {get; init; }
+    
+    [JsonProperty(PropertyName = "events")]
+    public EventsContainer? Events {get; init; }
 }

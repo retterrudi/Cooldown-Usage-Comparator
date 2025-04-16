@@ -27,4 +27,6 @@ var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
 var testPlayerDetails = await warcraftLogsClient.PlayerDetails("NbJGzkjLPtThAc4W", 1);
 var testFights = await warcraftLogsClient.Fights("NbJGzkjLPtThAc4W");
 
+var testEvents = await warcraftLogsClient.Events("NbJGzkjLPtThAc4W", 1, 46);
+
 return 0;
