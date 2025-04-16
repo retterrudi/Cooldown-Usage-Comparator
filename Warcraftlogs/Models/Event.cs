@@ -15,4 +15,7 @@ public class Event
     
     [JsonProperty(PropertyName = "type")]
     public string? Type { get; init; }
+
+    public override string ToString() =>
+        $"Timestamp: {Timestamp}\tAbilityGameId: {AbilityGameId}\tType: {Type}";
 }
