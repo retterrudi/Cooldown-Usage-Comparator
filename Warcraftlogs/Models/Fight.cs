@@ -35,4 +35,7 @@ public class Fight
 
     [JsonPropertyName("startTime")] 
     public long? StartTime { get; init; }
+
+    public override string ToString() =>
+        $"Encounter name: {Name}\nStart time: {StartTime}\nEnd time: {EndTime}";
 }
