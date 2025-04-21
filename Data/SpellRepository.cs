@@ -4,22 +4,49 @@ public class SpellRepository
 {
     public readonly Dictionary<AbilityGameId, Spell> Spells = new()
     {
+        // Death Knight
+        { AbilityGameId.VampiricSpeedBuff, new Spell(434029, "Vampiric Speed", null)}, 
+        
         // Mage
         { AbilityGameId.FireballSpell, new Spell(133, "Fireball", "spell_fire_flamebolt.jpg") },
         { AbilityGameId.FlamestrikeSpell, new Spell(2120, "Flamestrike", "spell_fire_selfdestruct.jpg") },
         { AbilityGameId.Counterspell, new Spell(2139, "Counterspell", "spell_frost_iceshock.jpg") },
         { AbilityGameId.ScorchSpell, new Spell(2948, "Scorch", "spell_fire_soulburn.jpg") },
         { AbilityGameId.PyroblastSpell, new Spell(11366, "Pyroblast", "spell_fire_fireball02.jpg")},
+        { AbilityGameId.IgniteDebuff, new Spell(12654, "Ignite", null)},
+        { AbilityGameId.LivingBombDamage, new Spell(44461, "Living Bomb", null)},
+        { AbilityGameId.HeatingUpBuff, new Spell(48107, "Heating Up", null)},
+        { AbilityGameId.HotStreakBuff, new Spell(48108, "Hot Streak!", null)},
         { AbilityGameId.MirrorImageSpell, new Spell(55342, "Mirror Image", "spell_magic_lesserinvisibilty.jpg")},
         { AbilityGameId.CauterizeSpell, new Spell(86949, "Cauterize", "spell_fire_rune.jpg")},
         { AbilityGameId.FireBlastSpell, new Spell(108853, "Fire Blast", "spell_fire_fireball.jpg")},
         { AbilityGameId.CombustionSpell, new Spell(190319, "Combustion", "spell_fire_sealoffire.jpg")},
         { AbilityGameId.ShimmerSpell, new Spell(212653, "Shimmer", "spell_arcane_massdispel")},
+        { AbilityGameId.LivingBombDebuff, new Spell(217694, "Living Bomb", null)},
         { AbilityGameId.BlazingBarrierSpell, new Spell(235313, "Blazing Barrier", "ability_mage_moltenarmor.jpg")},
+        { AbilityGameId.LivingBombDebuff2, new Spell(244813, "Living Bomb", null)},
         { AbilityGameId.PhoenixFlamesSpell, new Spell(257541, "Phoenix Flames", "artifactability_firemage_phoenixbolt.jpg")},
         { AbilityGameId.AlterTimeSpell, new Spell(342245, "Alter Time", "spell_mage_altertime.jpg")},
         { AbilityGameId.ShiftingPowerSpell, new Spell(382440, "Shifting Power", "inv_ability_mage_shiftingpower.jpg")},
+        { AbilityGameId.FeelTheBurnBuff, new Spell(383395, "Feel the Burn", null)}, 
+        { AbilityGameId.WildfireBuff, new Spell(383492, "Wildfire", null)},
+        { AbilityGameId.WildfireBuffStack, new Spell(383493, "Wildfire", null)},
+        { AbilityGameId.FieryRushBuff, new Spell(383637, "Fiery Rush", null)},
+        { AbilityGameId.FeveredIncantationBuffStack, new Spell(383811, "Fevered Incantation", null)},
         { AbilityGameId.MassBarrierSpell, new Spell(414660, "Mass Barrier", "ability_racial_magicalresistance.jpg")},
+        { AbilityGameId.BlazingBarrierBuff, new Spell(414662, "Blazing Barrier", null)},
+        { AbilityGameId.ArcanePhoenixBuff, new Spell(448659, "Arcane Phoenix", null)},
+        { AbilityGameId.ManaCascadeBuffStack, new Spell(449314, "Mana Cascade", null)},
+        { AbilityGameId.SpellfireSpheresBuffStack, new Spell(449400, "Spellfire Spheres", null)},
+        { AbilityGameId.FlamestrikeDamage, new Spell(450462, "Flamestrike", null)},
+        { AbilityGameId.LitFuseBuff, new Spell(453207, "Lit Fuse", null)},
+        { AbilityGameId.FiresIreBuff, new Spell(453385, "Fire's Ire", null)},
+        { AbilityGameId.RollinHotBuff, new Spell(1219035, "Rollin' Hot", null)},
+        { AbilityGameId.PhoenixRebornBuffStack, new Spell(1219304, "Phoenix Reborn", null)},
+        
+        // Shaman
+        { AbilityGameId.HealingRainSpell, new Spell(73921, "Healing Rain", null)},
+        { AbilityGameId.WindRushBuff, new Spell(192082, "Wind Rush", null)},
     };
 }
 
@@ -28,23 +55,57 @@ public enum AbilityGameId
     // Error
     // Error = -1,
     
-    // Mage
-    FireballSpell = 133,
-    FlamestrikeSpell = 2120,
-    Counterspell = 2139,
-    ScorchSpell = 2948,
-    PyroblastSpell = 11366,
-    MirrorImageSpell = 55342, 
-    CauterizeSpell = 86949, 
-    FireBlastSpell = 108853, 
-    CombustionSpell = 190319, 
-    ShimmerSpell = 212653,
-    BlazingBarrierSpell = 235313,
-    PhoenixFlamesSpell = 257541,
-    AlterTimeSpell = 342245,
-    ShiftingPowerSpell = 382440,
-    MassBarrierSpell = 414660,
+    // Misc
+    // Weapon Enchant TWW
+    AuthorityOfRadiantPowerBuff  = 448730, 
+    AuthorityOfRadiantPowerDamage = 448744, 
     
+    // Death Knight
+    VampiricSpeedBuff = 434029,
+    
+    // Mage
+    FireballSpell               =     133,
+    FlamestrikeSpell            =    2120,
+    Counterspell                =    2139,
+    ScorchSpell                 =    2948,
+    PyroblastSpell              =   11366,
+    IgniteDebuff                =   12654, 
+    LivingBombDamage            =   44461, 
+    HeatingUpBuff               =   48107,
+    HotStreakBuff               =   48108, 
+    MirrorImageSpell            =   55342, 
+    CauterizeSpell              =   86949, 
+    FireBlastSpell              =  108853, 
+    CombustionSpell             =  190319, 
+    ShimmerSpell                =  212653,
+    LivingBombDebuff            =  217694, 
+    BlazingBarrierSpell         =  235313,
+    LivingBombDebuff2           =  244813, 
+    PhoenixFlamesSpell          =  257541,
+    AlterTimeSpell              =  342245,
+    ShiftingPowerSpell          =  382440,
+    FeelTheBurnBuff             =  383395, 
+    WildfireBuff                =  383492,
+    WildfireBuffStack           =  383493,
+    FieryRushBuff               =  383637,
+    FeveredIncantationBuffStack =  383811, 
+    MassBarrierSpell            =  414660,
+    BlazingBarrierBuff          =  414662,
+    ArcanePhoenixBuff           =  448659, 
+    ManaCascadeBuffStack        =  449314, 
+    SpellfireSpheresBuffStack   =  449400, 
+    FlamestrikeDamage           =  450462,
+    LitFuseBuff                 =  453207,
+    FiresIreBuff                =  453385,
+    RollinHotBuff               = 1219035,
+    PhoenixRebornBuffStack      = 1219304, 
+    
+    // Paladin
+    
+    
+    // Shaman
+    HealingRainSpell =  73921, 
+    WindRushBuff     = 192082,
 }
 
 public record Spell(int Id, string Name, string Icon);
