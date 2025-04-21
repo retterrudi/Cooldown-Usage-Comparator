@@ -36,12 +36,16 @@ var testEvents = await warcraftLogsClient.Events("NbJGzkjLPtThAc4W", 1, 46);
 var spellRepo = new SpellRepository();
 
 var i = 0;
-while (i < 100)
+while (testEvents[i].Timestamp - encounterStartTime <= 120_000 && i < testEvents.Count)
 {
     var abilityGameId = (testEvents[i]?.AbilityGameId ?? -1);
     if (Enum.IsDefined(typeof(AbilityGameId), abilityGameId))
     {
-        Console.WriteLine($"{TimeSpan.FromMilliseconds((testEvents[i].Timestamp - encounterStartTime) ?? 0)} {testEvents[i].Type}\t" + spellRepo.Spells[(AbilityGameId)abilityGameId]);
+        if (!spellRepo.Spells.ContainsKey((AbilityGameId)abilityGameId))
+        {
+            // Spell not in Dictionary
+        }
+        // Console.WriteLine($"{TimeSpan.FromMilliseconds((testEvents[i].Timestamp - encounterStartTime) ?? 0)} {testEvents[i].Type}\t" + spellRepo.Spells[(AbilityGameId)abilityGameId]);
     }
     else
     {
