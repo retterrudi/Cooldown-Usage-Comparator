@@ -10,6 +10,9 @@ public class Event
     [JsonProperty(PropertyName = "sourceID")]
     public int? SourceId { get; init; }
     
+    [JsonProperty(PropertyName = "targetID")]
+    public int? TargetId { get; init; }
+    
     [JsonProperty(PropertyName = "abilityGameID")]
     public int? AbilityGameId { get; init; }
     
