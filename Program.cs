@@ -36,7 +36,7 @@ var testEvents = await warcraftLogsClient.Events("NbJGzkjLPtThAc4W", 1, 46);
 var spellRepo = new SpellRepository();
 
 var i = 0;
-while (testEvents[i].Timestamp - encounterStartTime <= 120_000 && i < testEvents.Count)
+while (testEvents[i].Timestamp - encounterStartTime <= 60_000 * 8 && i < testEvents.Count)
 {
     var abilityGameId = (testEvents[i]?.AbilityGameId ?? -1);
     if (Enum.IsDefined(typeof(AbilityGameId), abilityGameId))
