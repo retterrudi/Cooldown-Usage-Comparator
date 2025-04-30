@@ -29,8 +29,11 @@ public class SpellRepository
         { AbilityGameId.PhoenixFlamesSpell, new Spell(257541, "Phoenix Flames", "artifactability_firemage_phoenixbolt.jpg")},
         // { AbilityGameId.PhoenixFlamesDamage, new Spell(257542, "Phoenix Flames", null)},
         { AbilityGameId.AlterTimeSpell, new Spell(342245, "Alter Time", "spell_mage_altertime.jpg")},
+        { AbilityGameId.AlterTimeBuff, new Spell(342246, "Alter Time", null)},
+        { AbilityGameId.AlterTimeReturn, new Spell(342247, "Alter Time (Return)", null)},
         { AbilityGameId.ShiftingPowerSpell, new Spell(382440, "Shifting Power", "inv_ability_mage_shiftingpower.jpg")},
         // { AbilityGameId.ShiftingPowerSpell2, new Spell(382445, "Shifting Power", null)},
+        { AbilityGameId.TemporalVelocityBuff2, new Spell(382824, "Temporal Velocity", null)},
         // { AbilityGameId.FeelTheBurnBuff, new Spell(383395, "Feel the Burn", null)}, 
         // { AbilityGameId.WildfireBuff, new Spell(383492, "Wildfire", null)},
         // { AbilityGameId.WildfireBuffStack, new Spell(383493, "Wildfire", null)},
@@ -64,6 +67,7 @@ public class SpellRepository
         // { AbilityGameId.RollinHotBuff, new Spell(1219035, "Rollin' Hot", null)},
         // { AbilityGameId.PhoenixRebornBuffStack, new Spell(1219304, "Phoenix Reborn", null)},
         // { AbilityGameId.PhoenixRebornBuff, new Spell(1219305, "Phoenix Reborn", null)},
+        { AbilityGameId.AlterTimeHeal, new Spell(1219545, "Alter Time Heal", null)},
         
         // Shaman
         // { AbilityGameId.HealingRainSpell, new Spell(73921, "Healing Rain", null)},
@@ -84,14 +88,17 @@ public enum AbilityGameId
     
     
     // Misc
+    // Potions
+    AlgariHealingPotion = 431416,
+    
     // Weapon Enchant TWW
     AuthorityOfRadiantPowerBuff  = 448730, 
     AuthorityOfRadiantPowerDamage = 448744, 
     AuthorityOfFieryResolve = 449209, 
     
     // TWW M+
-    VoidPulsar     = 1216858, 
-    VoidPulsarBuff = 1216943, 
+    VoidPulsar          = 1216858, 
+    VoidPulsarBuff      = 1216943, 
     
     // Trinkets
     BurinOfTheCandleKing = 443529, // ??
@@ -113,17 +120,24 @@ public enum AbilityGameId
     BoundingVoidSpell          =  426893,
     LocalizedStormSpell        =  427439, 
     EnergizedBarrageSpell      =  427616, 
+    NullUpheavalSpell          =  428126, 
+    UnstableCorruptionSpell    =  429493, 
     LightningBoltSpell         =  430109, 
-    SeepingCorruptionSpell     =  430179, 
+    SeepingCorruptionSpell2    =  430179, 
     VoidBoltSpell              =  430238, 
     ArcingVoidSpell            =  430805, 
     AttractingShadowsSpell     =  430814, 
+    SeepingCorruptionSpell     =  433067, 
     EntropyShieldSpell         =  450628, 
+    StormriderChargeSpell      =  458082, 
+    VolatileVoidSpell          =  472549, 
+    VoidExtractionBuff         =  472764, 
     VoidCrushSpell             =  474032, 
     LightningTorrentSpell      = 1214323, 
     CrashingThunderSpell       = 1214324, 
     CrashingThunderSpell2      = 1214326,
     FeastingVoidSpell          = 1214523, 
+    UnleashDarknessSpell       = 1214631, 
     
     // Common
     DevotionAuraBuff         =    465,
@@ -135,6 +149,7 @@ public enum AbilityGameId
     TimeWarpBuff             = 342242, 
     FlightStyleSkyridingBuff = 404464, 
     SkyfuryBuff              = 462854, 
+    SkyfuryBuff2             = 465660, 
     
     // Death Knight
     BlindingSleetDebuff = 207167, 
@@ -168,8 +183,11 @@ public enum AbilityGameId
     PhoenixFlamesDamage         =  257542,
     MirrorImageSummon           =  321686, 
     AlterTimeSpell              =  342245,
+    AlterTimeBuff               =  342246, 
+    AlterTimeReturn             =  342247, // Return
     ShiftingPowerSpell          =  382440,
     ShiftingPowerSpell2         =  382445, 
+    TemporalVelocityBuff2       =  382824, 
     FeelTheBurnBuff             =  383395, 
     WildfireBuff                =  383492,
     WildfireBuffStack           =  383493,
@@ -209,6 +227,7 @@ public enum AbilityGameId
     PhoenixRebornBuffStack      = 1219304, 
     PhoenixRebornBuff           = 1219305, 
     BornOfFlameBuff             = 1219307, 
+    AlterTimeHeal               = 1219545, 
     
     // Paladin
     IntercessionSpell        = 391054, 
@@ -223,6 +242,7 @@ public enum AbilityGameId
     HealingStreamTotemSpell =  52042,  
     RiptideBuff             =  61295, 
     HealingRainSpell        =  73921, 
+    PurifySpiritSpell       =  77130,
     SpiritLinkSpell         =  98021, 
     RestorativeMistsSpell2  = 114083, 
     HealingTideSpell        = 114942, 

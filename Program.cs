@@ -36,7 +36,7 @@ var testEvents = await warcraftLogsClient.Events("NbJGzkjLPtThAc4W", 1, 46);
 var spellRepo = new SpellRepository();
 
 var i = 0;
-while (testEvents[i].Timestamp - encounterStartTime <= 60_000 * 16 && i < testEvents.Count)
+while (i < testEvents.Count && testEvents[i].Timestamp - encounterStartTime <= 60_000 * 32)
 {
     var abilityGameId = (testEvents[i]?.AbilityGameId ?? -1);
     if (Enum.IsDefined(typeof(AbilityGameId), abilityGameId))
@@ -54,6 +54,8 @@ while (testEvents[i].Timestamp - encounterStartTime <= 60_000 * 16 && i < testEv
 
     ++i;
 }
+
+Console.WriteLine($"i: {i}");
 
 // var unique = testEvents
 //     .Distinct(new EventComparer(true))
