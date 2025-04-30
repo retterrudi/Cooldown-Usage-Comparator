@@ -57,6 +57,8 @@ while (i < testEvents.Count && testEvents[i].Timestamp - encounterStartTime <= 6
 
 Console.WriteLine($"i: {i}");
 
+Cooldown_Usage_Comparator.Utils.GeneralUtils.PrintTimeline(testEvents, encounterStartTime ?? 1, spellRepo);
+
 // var unique = testEvents
 //     .Distinct(new EventComparer(true))
 //     .OrderBy(e => e.AbilityGameId);

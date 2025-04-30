@@ -78,7 +78,7 @@ public class SpellRepository
 public enum AbilityGameId
 {
     // Error
-    // Error = -1,
+    Error = -1,
     
     Death = 0,
     
