@@ -23,8 +23,40 @@ public static class GeneralUtils
         {
             if (spellRepository.Spells.ContainsKey((AbilityGameId)(item.AbilityGameId ?? -1)))
             {
-                Console.WriteLine($"[{TimeSpan.FromMilliseconds((item.Timestamp - startTime) ?? 0)}] [{item.Type}] [{spellRepository.Spells[(AbilityGameId)(item.AbilityGameId ?? -1)]}]");
+                Console.WriteLine(
+                    $"[{TimeSpan.FromMilliseconds((item.Timestamp - startTime) ?? 0)}] " +
+                    $"[{item.Type}] " +
+                    $"[{spellRepository.Spells[(AbilityGameId)(item.AbilityGameId ?? -1)]}]");
             }
         }
+    }
+
+    public static void PrintTimelineOfAbilityIds(
+        List<Event> events,
+        long startTime,
+        int timeSpanInSeconds,
+        SpellRepository spellRepository)
+    {
+        var i = 0;
+        while (i < events.Count && events[i].Timestamp - startTime <= 60_000 * timeSpanInSeconds)
+        {
+            var abilityGameId = (events[i]?.AbilityGameId ?? -1);
+            if (Enum.IsDefined(typeof(AbilityGameId), abilityGameId))
+            {
+                if (!spellRepository.Spells.ContainsKey((AbilityGameId)abilityGameId))
+                {
+                }
+            }
+            else
+            {
+                Console.WriteLine(
+                    $"{TimeSpan.FromMilliseconds((events[i].Timestamp - startTime) ?? 0)} " +
+                    $"{events[i].Type} " +
+                    $"Id: {events[i].AbilityGameId}");
+            }
+
+            ++i;
+        }
+        Console.WriteLine($"i: {i}");
     }
 }
