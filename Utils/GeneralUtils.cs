@@ -14,9 +14,12 @@ public static class GeneralUtils
         Console.WriteLine(prettyJson);
     }
 
-    public static void PrintTimeline(List<Event> events, long startTime, SpellRepository spellRepository)
+    public static void PrintTimeline(
+        List<Event> events, 
+        long startTime, 
+        SpellRepository spellRepository)
     {
-        foreach (var item in events)
+        foreach (var item in events.Where(e => e.Type == "cast"))
         {
             if (spellRepository.Spells.ContainsKey((AbilityGameId)(item.AbilityGameId ?? -1)))
             {

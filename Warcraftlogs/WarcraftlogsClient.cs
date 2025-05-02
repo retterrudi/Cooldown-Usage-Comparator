@@ -80,7 +80,7 @@ public class WarcraftlogsClient
             Console.WriteLine(e);
             throw;
 
-            // TODO
+            // TODO: Handle Exception Case
         }
     }
     

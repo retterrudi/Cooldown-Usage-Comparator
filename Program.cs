@@ -1,5 +1,6 @@
 using Cooldown_Usage_Comparator.Data;
 using Cooldown_Usage_Comparator.Models;
+using Cooldown_Usage_Comparator.Utils;
 using Cooldown_Usage_Comparator.Warcraftlogs;
 using Cooldown_Usage_Comparator.Warcraftlogs.Comparers;
 using Newtonsoft.Json;
@@ -57,7 +58,7 @@ while (i < testEvents.Count && testEvents[i].Timestamp - encounterStartTime <= 6
 
 Console.WriteLine($"i: {i}");
 
-Cooldown_Usage_Comparator.Utils.GeneralUtils.PrintTimeline(testEvents, encounterStartTime ?? 1, spellRepo);
+GeneralUtils.PrintTimeline(testEvents, encounterStartTime ?? 1, spellRepo);
 
 // var unique = testEvents
 //     .Distinct(new EventComparer(true))
@@ -67,5 +68,15 @@ Cooldown_Usage_Comparator.Utils.GeneralUtils.PrintTimeline(testEvents, encounter
 // {
 //     Console.WriteLine(item.AbilityGameId);
 // }
+
+var uniqueTypes = testEvents
+    .Select(e => e.Type)
+    .Distinct()
+    .ToList();
+
+foreach (var type in uniqueTypes)
+{
+    Console.WriteLine(type);
+}
 
 return 0;
