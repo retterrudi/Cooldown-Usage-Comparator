@@ -2,38 +2,12 @@ using Cooldown_Usage_Comparator.Data;
 using Cooldown_Usage_Comparator.Models;
 using Cooldown_Usage_Comparator.Utils;
 using Cooldown_Usage_Comparator.Warcraftlogs;
+using Cooldown_Usage_Comparator.Warcraftlogs.Models;
 using Newtonsoft.Json;
 
 var config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .Build();
-
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
-
-app.MapGet("/fights", (string reportCode) =>
-{
-    // Return all (relevant) fights
-});
-
-app.MapGet("/players", (string reportCode, int fightId) =>
-{
-    // Return all players of a given fight
-});
-
-app.MapGet("/timeline", 
-    (
-        string reportCode, 
-        int fightId, 
-        int playerId) =>
-    {
-        // Return a timeline
-    }
-);
-
-app.Run();
 
 const string tokenUrl = "https://www.warcraftlogs.com/oauth/token";
 var oAuthClient = new OAuthTokenClient(
@@ -51,6 +25,43 @@ if (tokenResponse?.AccessToken is null)
 }
 
 var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
+
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet("/", () => "Hello World!");
+
+app.MapGet("/fights", async (string reportCode) =>
+{
+    var fights = await warcraftLogsClient.Fights(reportCode);
+    var content = JsonConvert.SerializeObject(fights);
+    return Results.Content(content);
+});
+
+app.MapGet("/players", async (string reportCode, int fightId) =>
+{
+    var playerDetails = await warcraftLogsClient.PlayerDetails(reportCode, fightId);
+    var content = JsonConvert.SerializeObject(playerDetails);
+    return Results.Content(content);
+});
+
+app.MapGet("/timeline", 
+    async (
+        string reportCode, 
+        int fightId, 
+        int playerId) =>
+    {
+        // TODO: Create meaningful timeline (filter for player...)
+        var events = await warcraftLogsClient.Events(reportCode, fightId, playerId);
+        var content = JsonConvert.SerializeObject(events);
+        return Results.Content(content);
+    }
+);
+
+app.Run();
+
+return 0;
+
 var testPlayerDetails = await warcraftLogsClient.PlayerDetails("NbJGzkjLPtThAc4W", 1);
 var testFights = await warcraftLogsClient.Fights("NbJGzkjLPtThAc4W");
 
@@ -73,5 +84,3 @@ foreach (var type in uniqueTypes)
 {
     Console.WriteLine(type);
 }
-
-return 0;
