@@ -8,6 +8,33 @@ var config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .Build();
 
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet("/", () => "Hello World!");
+
+app.MapGet("/fights", (string reportCode) =>
+{
+    // Return all (relevant) fights
+});
+
+app.MapGet("/players", (string reportCode, int fightId) =>
+{
+    // Return all players of a given fight
+});
+
+app.MapGet("/timeline", 
+    (
+        string reportCode, 
+        int fightId, 
+        int playerId) =>
+    {
+        // Return a timeline
+    }
+);
+
+app.Run();
+
 const string tokenUrl = "https://www.warcraftlogs.com/oauth/token";
 var oAuthClient = new OAuthTokenClient(
     config["warcraftlogs:client-id"] ?? throw new InvalidOperationException(), 
