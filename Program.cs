@@ -1,8 +1,6 @@
 using Cooldown_Usage_Comparator.Data;
 using Cooldown_Usage_Comparator.Models;
-using Cooldown_Usage_Comparator.Utils;
 using Cooldown_Usage_Comparator.Warcraftlogs;
-using Cooldown_Usage_Comparator.Warcraftlogs.Models;
 using Newtonsoft.Json;
 
 var config = new ConfigurationBuilder()
@@ -25,11 +23,10 @@ if (tokenResponse?.AccessToken is null)
 }
 
 var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
+var spellRepo = new SpellRepository();
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/fights", async (string reportCode) =>
 {
@@ -53,7 +50,12 @@ app.MapGet("/timeline",
     {
         // TODO: Create meaningful timeline (filter for player...)
         var events = await warcraftLogsClient.Events(reportCode, fightId, playerId);
-        var content = JsonConvert.SerializeObject(events);
+        // Filter for known spells
+        // No understanding for a class yet
+        var filteredEvents = events.Where(e => 
+            e.AbilityGameId is not null 
+            && spellRepo.Spells.ContainsKey((AbilityGameId)e.AbilityGameId)).ToList();
+        var content = JsonConvert.SerializeObject(filteredEvents);
         return Results.Content(content);
     }
 );
@@ -61,26 +63,3 @@ app.MapGet("/timeline",
 app.Run();
 
 return 0;
-
-var testPlayerDetails = await warcraftLogsClient.PlayerDetails("NbJGzkjLPtThAc4W", 1);
-var testFights = await warcraftLogsClient.Fights("NbJGzkjLPtThAc4W");
-
-Console.WriteLine(testFights[0]);
-
-var encounterStartTime = testFights[0].StartTime;
-
-var testEvents = await warcraftLogsClient.Events("NbJGzkjLPtThAc4W", 1, 46);
-
-var spellRepo = new SpellRepository();
-
-GeneralUtils.PrintTimeline(testEvents, encounterStartTime ?? 1, spellRepo);
-
-var uniqueTypes = testEvents
-    .Select(e => e.Type)
-    .Distinct()
-    .ToList();
-
-foreach (var type in uniqueTypes)
-{
-    Console.WriteLine(type);
-}
