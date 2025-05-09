@@ -28,6 +28,15 @@ public class WarcraftlogsClient
         _playerDetailsService = new PlayerDetailsService();
     }
 
+    // public async Task<List<Event>> EventsOfPlayer(
+    //     string reportCode, 
+    //     int fightId, 
+    //     int sourceId, 
+    //     GameClass gameClass)
+    // {
+    //     
+    // }
+
     public async Task<List<Event>> Events(
         string reportCode,
         int fightId, 

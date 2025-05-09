@@ -46,7 +46,8 @@ app.MapGet("/timeline",
     async (
         string reportCode, 
         int fightId, 
-        int playerId) =>
+        int playerId, 
+        int gameClass) =>
     {
         // TODO: Create meaningful timeline (filter for player...)
         var events = await warcraftLogsClient.Events(reportCode, fightId, playerId);
@@ -55,6 +56,8 @@ app.MapGet("/timeline",
         var filteredEvents = events.Where(e => 
             e.AbilityGameId is not null 
             && spellRepo.Spells.ContainsKey((AbilityGameId)e.AbilityGameId)).ToList();
+        // Add filter for class 
+        // TODO: Modify SpellRepository to enable filtering for a GameClass
         var content = JsonConvert.SerializeObject(filteredEvents);
         return Results.Content(content);
     }
