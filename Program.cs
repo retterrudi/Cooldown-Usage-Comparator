@@ -52,7 +52,6 @@ app.MapGet("/timeline",
         int playerId, 
         string gameClassAsString) =>
     {
-        // TODO: Create meaningful timeline (filter for player...)
         var gameClass = gameClassAsString switch
         {
             "DeathKnight" => GameClass.DeathKnight,
@@ -72,16 +71,13 @@ app.MapGet("/timeline",
         }; 
         var spellRepo = new SpellRepositoryProvider().BuildRepositoryForClass(gameClass);
         
-        
         var events = await warcraftLogsClient.Events(reportCode, fightId, playerId);
-        // Filter for known spells
-        // No understanding for a class yet
+        
         var filteredEvents = events.Where(e => 
             e.AbilityGameId is not null 
             && spellRepo.ContainsKey((AbilityGameId)e.AbilityGameId))
             .ToList();
-        // Add filter for class 
-        // TODO: Modify SpellRepository to enable filtering for a GameClass
+        
         var content = JsonConvert.SerializeObject(filteredEvents);
         return Results.Content(content);
     }
