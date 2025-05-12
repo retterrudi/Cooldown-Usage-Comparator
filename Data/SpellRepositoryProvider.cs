@@ -1,8 +1,10 @@
-﻿namespace Cooldown_Usage_Comparator.Data;
+﻿using Cooldown_Usage_Comparator.Models;
 
-public class SpellRepository
+namespace Cooldown_Usage_Comparator.Data;
+
+public class SpellRepositoryProvider
 {
-    public readonly Dictionary<AbilityGameId, Spell> Spells = new()
+    public readonly Dictionary<AbilityGameId, Spell> Mage = new()
     {
         // Death Knight
         // { AbilityGameId.VampiricSpeedBuff, new Spell(434029, "Vampiric Speed", null)}, 
@@ -69,10 +71,37 @@ public class SpellRepository
         // { AbilityGameId.PhoenixRebornBuff, new Spell(1219305, "Phoenix Reborn", null)},
         { AbilityGameId.AlterTimeHeal, new Spell(1219545, "Alter Time Heal", null)},
         
+        
         // Shaman
         // { AbilityGameId.HealingRainSpell, new Spell(73921, "Healing Rain", null)},
         // { AbilityGameId.WindRushBuff, new Spell(192082, "Wind Rush", null)},
     };
+    
+    public readonly Dictionary<AbilityGameId, Spell> General = new()
+    {
+        { AbilityGameId.AlgariHealingPotion, new Spell(431416, "Algari Healing Potion", null)},
+    };
+
+    public Dictionary<AbilityGameId, Spell> BuildRepositoryForClass(GameClass gameClass)
+    {
+        return gameClass switch
+        {
+            GameClass.DeathKnight => throw new NotImplementedException(),
+            GameClass.DemonHunter => throw new NotImplementedException(),
+            GameClass.Druid => throw new NotImplementedException(),
+            GameClass.Evoker => throw new NotImplementedException(),
+            GameClass.Hunter => throw new NotImplementedException(),
+            GameClass.Mage => Mage.Concat(General).ToDictionary(),
+            GameClass.Monk => throw new NotImplementedException(),
+            GameClass.Paladin => throw new NotImplementedException(),
+            GameClass.Priest => throw new NotImplementedException(),
+            GameClass.Rogue => throw new NotImplementedException(),
+            GameClass.Shaman => throw new NotImplementedException(),
+            GameClass.Warlock => throw new NotImplementedException(),
+            GameClass.Warrior => throw new NotImplementedException(),
+            _ => throw new ArgumentOutOfRangeException(nameof(gameClass), gameClass, null)
+        };
+    }
 }
 
 public enum AbilityGameId

@@ -23,7 +23,6 @@ if (tokenResponse?.AccessToken is null)
 }
 
 var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
-var spellRepo = new SpellRepository();
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -35,7 +34,11 @@ app.MapGet("/fights", async (string reportCode) =>
     return Results.Content(content);
 });
 
-app.MapGet("/players", async (string reportCode, int fightId) =>
+app.MapGet(
+    "/players", 
+    async (
+        string reportCode, 
+        int fightId) =>
 {
     var playerDetails = await warcraftLogsClient.PlayerDetails(reportCode, fightId);
     var content = JsonConvert.SerializeObject(playerDetails);
@@ -47,15 +50,36 @@ app.MapGet("/timeline",
         string reportCode, 
         int fightId, 
         int playerId, 
-        int gameClass) =>
+        string gameClassAsString) =>
     {
         // TODO: Create meaningful timeline (filter for player...)
+        var gameClass = gameClassAsString switch
+        {
+            "DeathKnight" => GameClass.DeathKnight,
+            "DemonHunter" => GameClass.DemonHunter,
+            "Druid" => GameClass.Druid,
+            "Evoker" => GameClass.Evoker,
+            "Hunter" => GameClass.Hunter,
+            "Mage" => GameClass.Mage,
+            "Monk" => GameClass.Monk,
+            "Paladin" => GameClass.Paladin,
+            "Priest" => GameClass.Priest,
+            "Rogue" => GameClass.Rogue,
+            "Shaman" => GameClass.Shaman,
+            "Warlock" => GameClass.Warlock,
+            "Warrior" => GameClass.Warrior,
+            _ => throw new ArgumentException($"Invalid game class name: {gameClassAsString}"),
+        }; 
+        var spellRepo = new SpellRepositoryProvider().BuildRepositoryForClass(gameClass);
+        
+        
         var events = await warcraftLogsClient.Events(reportCode, fightId, playerId);
         // Filter for known spells
         // No understanding for a class yet
         var filteredEvents = events.Where(e => 
             e.AbilityGameId is not null 
-            && spellRepo.Spells.ContainsKey((AbilityGameId)e.AbilityGameId)).ToList();
+            && spellRepo.ContainsKey((AbilityGameId)e.AbilityGameId))
+            .ToList();
         // Add filter for class 
         // TODO: Modify SpellRepository to enable filtering for a GameClass
         var content = JsonConvert.SerializeObject(filteredEvents);

@@ -17,16 +17,16 @@ public static class GeneralUtils
     public static void PrintTimeline(
         List<Event> events, 
         long startTime, 
-        SpellRepository spellRepository)
+        Dictionary<AbilityGameId, Spell> spellRepository)
     {
         foreach (var item in events.Where(e => e.Type == "cast"))
         {
-            if (spellRepository.Spells.ContainsKey((AbilityGameId)(item.AbilityGameId ?? -1)))
+            if (spellRepository.ContainsKey((AbilityGameId)(item.AbilityGameId ?? -1)))
             {
                 Console.WriteLine(
                     $"[{TimeSpan.FromMilliseconds((item.Timestamp - startTime) ?? 0)}] " +
                     $"[{item.Type}] " +
-                    $"[{spellRepository.Spells[(AbilityGameId)(item.AbilityGameId ?? -1)]}]");
+                    $"[{spellRepository[(AbilityGameId)(item.AbilityGameId ?? -1)]}]");
             }
         }
     }
@@ -35,15 +35,15 @@ public static class GeneralUtils
         List<Event> events,
         long startTime,
         int timeSpanInSeconds,
-        SpellRepository spellRepository)
+        Dictionary<AbilityGameId, Spell> spellRepository)
     {
         var i = 0;
         while (i < events.Count && events[i].Timestamp - startTime <= 60_000 * timeSpanInSeconds)
         {
-            var abilityGameId = (events[i]?.AbilityGameId ?? -1);
+            var abilityGameId = (events[i].AbilityGameId ?? -1);
             if (Enum.IsDefined(typeof(AbilityGameId), abilityGameId))
             {
-                if (!spellRepository.Spells.ContainsKey((AbilityGameId)abilityGameId))
+                if (!spellRepository.ContainsKey((AbilityGameId)abilityGameId))
                 {
                 }
             }
