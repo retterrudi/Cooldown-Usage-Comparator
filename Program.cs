@@ -25,11 +25,30 @@ if (tokenResponse?.AccessToken is null)
 var warcraftLogsClient = new WarcraftlogsClient(tokenResponse.AccessToken);
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(options => options.LogToStandardErrorThreshold = LogLevel.Information);
 builder.Logging.AddDebug();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
+
+var CorsConfig = "_localFrontend";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: CorsConfig,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
+
+app.UseRouting();
+app.UseCors(CorsConfig);
 
 app.MapGet("/fights", async (string reportCode) =>
 {
@@ -87,6 +106,7 @@ app.MapGet("/timeline",
         return Results.Content(content);
     }
 );
+
 
 app.Run();
 
