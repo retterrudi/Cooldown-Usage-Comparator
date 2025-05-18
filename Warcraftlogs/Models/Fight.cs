@@ -1,39 +1,38 @@
-﻿using System.Text.Json.Serialization;
-// ReSharper disable UnusedMember.Global
+﻿using Newtonsoft.Json;
 
 namespace Cooldown_Usage_Comparator.Warcraftlogs.Models;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public class Fight
 {
-    [JsonPropertyName("difficulty")]
+    [JsonProperty(PropertyName = "difficulty")]
     public int? Difficulty { get; init; }
     
-    [JsonPropertyName("encounterID")]
+    [JsonProperty(PropertyName = "encounterID")]
     public int? EncounterId { get; init; }
     
-    [JsonPropertyName("endTime")]
+    [JsonProperty(PropertyName = "endTime")]
     public int? EndTime { get; init; }
     
-    [JsonPropertyName("friendlyPlayers")]
+    [JsonProperty(PropertyName = "friendlyPlayers")]
     public List<int>? FriendlyPlayers { get; init; }
     
-    [JsonPropertyName("id")]
+    [JsonProperty(PropertyName = "id")]
     public int? Id { get; init; }
     
-    [JsonPropertyName("keystoneBonus")]
+    [JsonProperty(PropertyName = "keystoneBonus")]
     public int? KeystoneBonus { get; init; }
     
-    [JsonPropertyName("keystoneLevel")]
+    [JsonProperty(PropertyName = "keystoneLevel")]
     public int? KeystoneLevel { get; init; }
     
-    [JsonPropertyName("keystoneTime")]
+    [JsonProperty(PropertyName = "keystoneTime")]
     public int? KeystoneTime {get; init; }
     
-    [JsonPropertyName("name")]
+    [JsonProperty(PropertyName = "name")]
     public string? Name { get; init; }
 
-    [JsonPropertyName("startTime")] 
+    [JsonProperty(PropertyName = "startTime")] 
     public long? StartTime { get; init; }
 
     public override string ToString() =>
