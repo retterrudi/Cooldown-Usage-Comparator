@@ -52,11 +52,12 @@ export default function SearchPlayersPage() {
       <div>
         <h2>Search Results</h2>
         {players && players.length > 0 ? (
-          <ul>
+          <ul style={{ listStyleType: "none", }}>
             {players.map((player) => (
-              <li key={player.id || Math.random()}>
+              <li key={player.id || Math.random()} style={{ border: "1px solid #eee", padding: "10px", marginBottom: "10px"}}>
                 <strong>Name:</strong> {player.name ?? "N/A"} <br/>
                 <strong>Server:</strong> {player.server ?? "N/A"} <br/>
+                <strong>Class:</strong> {player.type ?? "N/A"} <br/>
                 <strong>Spec:</strong> {player.specs ? player.specs.map((spec) => (spec.spec?.toString())) : ""} <br/>
               </li>
             ))}
