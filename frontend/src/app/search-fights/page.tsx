@@ -42,7 +42,6 @@ export default function SearchFightsPage() {
 
     try {
       const url = `${DOTNET_API_BASE_URL}/fights?reportCode=${encodeURIComponent(reportCode)}`;
-      console.log(url);
       const response = await fetch(
         // `${DOTNET_API_BASE_URL}/fights?fightCode=${encodeURIComponent(fightCode)}`
         url
@@ -107,9 +106,9 @@ export default function SearchFightsPage() {
           {fights && fights.length > 0 ? (
             <ul style={{ listStyleType: "none", padding: 0 }}>
               {fights.map((fight) => (
-                <li key={fight.Id || Math.random()} style={{ border: "1px solid #eee", padding: "10px", marginBottom: "10px"}}>
-                  <strong>Name:</strong> {fight.Name ?? "N/A"} <br />
-                  <strong>Keystone Level:</strong> {fight.KeystoneLevel ?? "N/A"}
+                <li key={fight.id || Math.random()} style={{ border: "1px solid #eee", padding: "10px", marginBottom: "10px"}}>
+                  <strong>Name:</strong> {fight.name ?? "N/A"} <br />
+                  <strong>Keystone Level:</strong> {fight.keystoneLevel ?? "N/A"}
                 </li>
               ))}
             </ul>

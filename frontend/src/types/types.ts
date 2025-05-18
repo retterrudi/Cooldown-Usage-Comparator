@@ -1,11 +1,12 @@
 ﻿export interface Fight {
-  Difficulty: number | null;
-  EncounterId: number | null;
-  EndTime: number | null;
-  FriendlyPlayers: number[] | null;
-  Id: number | null;
-  KeystoneBonus: number | null;
-  KeystoneLevel: number | null;
-  Name: string | null;
-  StartTime: number | null;
+  difficulty: number | null;
+  encounterId: number | null;
+  endTime: number | null;
+  friendlyPlayers: number[] | null;
+  id: number | null;
+  keystoneBonus: number | null;
+  keystoneLevel: number | null;
+  name: string | null;
+  startTime: number | null;
+}
 }

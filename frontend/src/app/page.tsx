@@ -7,13 +7,13 @@ export default async function Home() {
     <h1>Fights</h1>
     <ul>
       {content.map((fight: Fight) => (
-        <li key={fight.Id}>{fight.Name} {fight.KeystoneLevel !== null ? fight.KeystoneLevel : "Empty"}</li>
+        <li key={fight.id}>{fight.name} {fight.keystoneLevel !== null ? fight.keystoneLevel : "Empty"}</li>
       ))}
     </ul>
   </div>;
 }
 
-export async function getFightsAsync(fightCode: string): Promise<Fight[]> {
+async function getFightsAsync(fightCode: string): Promise<Fight[]> {
   const data: Response = await fetch(
     `http://localhost:5000/fights?reportCode=${fightCode}`
   );
