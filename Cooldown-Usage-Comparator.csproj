@@ -6,16 +6,33 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Cooldown_Usage_Comparator</RootNamespace>
     <UserSecretsId>4ba0ec7e-ca97-41dd-90e9-7b34867935fc</UserSecretsId>
+    
+<!--    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>-->
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="xunit.v3" Version="2.0.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
-
+  
+  
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Services\" />
   </ItemGroup>
+
+<!--  <ItemGroup Condition="'$(Configuration)' == 'Debug'">-->
+<!--    <Compile Include="Tests\**\*.cs" />-->
+<!--  </ItemGroup>-->
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Compile Remove="Tests\**\*.cs" />
+  </ItemGroup> 
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
