@@ -85,7 +85,6 @@ public class EventsServiceTests
         Assert.Equal([], actualValue);
     }
     
-    
     [Fact]
     public void ExtractEvents_ValidJsonWithNullValues_ReturnListWithTwoItemsAllNull()
     {

@@ -15,6 +15,7 @@ public class EventsService
         }
         catch (Exception e)
         {
+            // TODO: I believe this should just log the error and return an empty list
             Console.WriteLine(e);
             throw;
         }
