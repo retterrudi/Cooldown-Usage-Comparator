@@ -1,6 +1,7 @@
 using Cooldown_Usage_Comparator.Data;
 using Cooldown_Usage_Comparator.Models;
 using Cooldown_Usage_Comparator.Warcraftlogs;
+using Cooldown_Usage_Comparator.Warcraftlogs.Models;
 using Newtonsoft.Json;
 
 var config = new ConfigurationBuilder()
@@ -100,6 +101,22 @@ app.MapGet("/timeline",
         var filteredEvents = events.Where(e => 
             e.AbilityGameId is not null 
             && spellRepo.ContainsKey((AbilityGameId)e.AbilityGameId))
+            .Select(ev =>
+            {
+                if (ev.Timestamp is not null
+                    && ev.AbilityGameId is not null 
+                    && spellRepo.ContainsKey((AbilityGameId)ev.AbilityGameId))
+                {
+                    return new FightEvent(
+                        ev.Timestamp.Value, 
+                        ev.AbilityGameId.Value, 
+                        spellRepo[(AbilityGameId)ev.AbilityGameId].Name, 
+                        spellRepo[(AbilityGameId)ev.AbilityGameId].Icon);
+                }
+
+                return null;
+            })
+            .Where(item => item is not null)
             .ToList();
         
         var content = JsonConvert.SerializeObject(filteredEvents);

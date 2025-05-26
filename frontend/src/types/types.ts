@@ -25,3 +25,11 @@ export interface PlayerSpec {
   spec: string | null;
   count: number;
 }
+
+export interface FightEvent {
+  timestamp: number;
+  abilityId: number;
+  abilityName: string;
+  imageName: string;
+  // type: string; // Could be enum
+}
